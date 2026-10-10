@@ -76,7 +76,7 @@ if (!isset($_SESSION[$SESSION_KEY]) || $_SESSION[$SESSION_KEY] !== true) {
     <link rel="icon" type="image/png" href="https://s15.gifyu.com/images/bQ0b1.png">
     <style>
      body {
-       background: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh7yPUK7TB7pjkbgQYoQRdjs_tH_RaD9m8-AggSBri3XX0jSsQv0OEFp2RyhHiaH5L7fjloe65dcFPeav8WYUMdeWJSgsC3pfwZWiHBKv84fO5zxDqdHQAE-u9S3k9-z6bCsPqEtqj5wlGFh8KWrxgPeRbyV4Kn5Hr2dnjvAJMFIZb9qwNc6EGteJwyJZQ/s3840/cd168f8d08bae2ac44c95096be174b46.0000000.jpg') no-repeat center center fixed;
+       background: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhS4-Ur1M0AF5_oQTYXjcC5MepAlGt3HKLc0QLHspmYQ7iTfln0SUtkSQak6AZ1-h_0yq6eOmbyfRRZJ1UMhUt8s_HQxjHqcULFe1ApCVRIOFWN8re-UBDV6yvGTR6uREN_MGGqBQnx-nKH5Sd1J-zbA_HOHhA1NW_o39Owk8Kbs213XOnxKdewVrk3R9Q/s736/kok.gif') no-repeat center center fixed;
        background-size: cover;
        color: #e9d5ff;
        font-family: system-ui, sans-serif;
@@ -115,7 +115,7 @@ if (!isset($_SESSION[$SESSION_KEY]) || $_SESSION[$SESSION_KEY] !== true) {
        50%     { box-shadow: 0 0 70px rgba(192,132,252,0.5), 0 0 140px rgba(168,85,247,0.3); }
      }
      .login-logo {
-       width: 220px;
+       width: 320px;
        height: auto;
        margin: 0 auto 15px;
        display: block;
